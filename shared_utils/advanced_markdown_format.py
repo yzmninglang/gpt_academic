@@ -208,12 +208,14 @@ def fix_code_segment_indent(txt):
 
 
 def markdown_convertion_for_file(txt):
+    # 找到该文档的标题
+    title=re.findall('#.*?([\w].*?)\n',txt)[0]
     """
     将Markdown格式的文本转换为HTML格式。如果包含数学公式，则先将公式转换为HTML格式。
     """
     from themes.theme import advanced_css
     pre = f"""
-    <!DOCTYPE html><head><meta charset="utf-8"><title>对话历史</title><style>{advanced_css}</style></head>
+    <!DOCTYPE html><head><meta charset="utf-8"><title>{title}</title><style>{advanced_css}</style></head>
     <body>
     <div class="test_temp1" style="width:10%; height: 500px; float:left;"></div>
     <div class="test_temp2" style="width:80%;padding: 40px;float:left;padding-left: 20px;padding-right: 20px;box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 8px 8px;border-radius: 10px;">

@@ -170,36 +170,36 @@ def 解析PDF_DOC2X_单文件(fp, project_folder, llm_kwargs, plugin_kwargs, cha
 
 
 
-        chatbot.append((None, f"调用Markdown插件 {ex_folder} ..."))
-        plugin_kwargs['markdown_expected_output_dir'] = ex_folder
+        # chatbot.append((None, f"调用Markdown插件 {ex_folder} ..."))
+        # plugin_kwargs['markdown_expected_output_dir'] = ex_folder
 
-        translated_f_name = 'translated_markdown.md'
-        generated_fp = plugin_kwargs['markdown_expected_output_path'] = os.path.join(ex_folder, translated_f_name)
-        yield from update_ui(chatbot=chatbot, history=history) # 刷新界面
-        yield from Markdown英译中(ex_folder, llm_kwargs, plugin_kwargs, chatbot, history, system_prompt, user_request)
-        if os.path.exists(generated_fp):
-            # 修正一些公式问题
-            with open(generated_fp, 'r', encoding='utf8') as f: content = f.read()
-            content = content.replace('```markdown', '\n').replace('```', '\n')
-            # Markdown中使用不标准的表格，需要在表格前加上一个emoji，以便公式渲染
-            content = re.sub(r'^<table>', r'😃<table>', content, flags=re.MULTILINE)
-            with open(generated_fp, 'w', encoding='utf8') as f: f.write(content)
-            # 生成在线预览html
-            file_name = '在线预览翻译' + gen_time_str() + '.html'
-            preview_fp = os.path.join(ex_folder, file_name)
-            from shared_utils.advanced_markdown_format import markdown_convertion_for_file
-            with open(generated_fp, "r", encoding="utf-8") as f:
-                md = f.read()
-            html = markdown_convertion_for_file(md)
-            with open(preview_fp, "w", encoding="utf-8") as f: f.write(html)
-            promote_file_to_downloadzone(preview_fp, chatbot=chatbot)
-            # 生成包含图片的压缩包
-            dest_folder = get_log_folder(chatbot.get_user())
-            zip_name = '翻译后的带图文档.zip'
-            zip_folder(source_folder=ex_folder, dest_folder=dest_folder, zip_name=zip_name)
-            zip_fp = os.path.join(dest_folder, zip_name)
-            promote_file_to_downloadzone(zip_fp, chatbot=chatbot)
-            yield from update_ui(chatbot=chatbot, history=history) # 刷新界面
+        # translated_f_name = 'translated_markdown.md'
+        # generated_fp = plugin_kwargs['markdown_expected_output_path'] = os.path.join(ex_folder, translated_f_name)
+        # yield from update_ui(chatbot=chatbot, history=history) # 刷新界面
+        # yield from Markdown英译中(ex_folder, llm_kwargs, plugin_kwargs, chatbot, history, system_prompt, user_request)
+        # if os.path.exists(generated_fp):
+        #     # 修正一些公式问题
+        #     with open(generated_fp, 'r', encoding='utf8') as f: content = f.read()
+        #     content = content.replace('```markdown', '\n').replace('```', '\n')
+        #     # Markdown中使用不标准的表格，需要在表格前加上一个emoji，以便公式渲染
+        #     content = re.sub(r'^<table>', r'😃<table>', content, flags=re.MULTILINE)
+        #     with open(generated_fp, 'w', encoding='utf8') as f: f.write(content)
+        #     # 生成在线预览html
+        #     file_name = '在线预览翻译' + gen_time_str() + '.html'
+        #     preview_fp = os.path.join(ex_folder, file_name)
+        #     from shared_utils.advanced_markdown_format import markdown_convertion_for_file
+        #     with open(generated_fp, "r", encoding="utf-8") as f:
+        #         md = f.read()
+        #     html = markdown_convertion_for_file(md)
+        #     with open(preview_fp, "w", encoding="utf-8") as f: f.write(html)
+        #     promote_file_to_downloadzone(preview_fp, chatbot=chatbot)
+        #     # 生成包含图片的压缩包
+        #     dest_folder = get_log_folder(chatbot.get_user())
+        #     zip_name = '翻译后的带图文档.zip'
+        #     zip_folder(source_folder=ex_folder, dest_folder=dest_folder, zip_name=zip_name)
+        #     zip_fp = os.path.join(dest_folder, zip_name)
+        #     promote_file_to_downloadzone(zip_fp, chatbot=chatbot)
+        #     yield from update_ui(chatbot=chatbot, history=history) # 刷新界面
     md_zip_path = yield from pdf2markdown(fp)
     yield from deliver_to_markdown_plugin(md_zip_path, user_request)
 

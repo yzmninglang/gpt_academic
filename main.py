@@ -44,7 +44,7 @@ def main():
     from themes.theme import adjust_theme, advanced_css, theme_declaration, js_code_clear, js_code_reset, js_code_show_or_hide, js_code_show_or_hide_group2
     from themes.theme import js_code_for_css_changing, js_code_for_toggle_darkmode, js_code_for_persistent_cookie_init
     from themes.theme import load_dynamic_theme, to_cookie_str, from_cookie_str, assign_user_uuid
-    title_html = f"<h1 align=\"center\">GPT 学术优化 {get_current_version()}</h1>{theme_declaration}"
+    title_html = f"<h1 align=\"center\">学术翻译 {get_current_version()}</h1>{theme_declaration}"
 
     # 对话、日志记录
     enable_log(PATH_LOGGING)
@@ -81,7 +81,7 @@ def main():
     customize_btns = {}
     predefined_btns = {}
     from shared_utils.cookie_manager import make_cookie_cache, make_history_cache
-    with gr.Blocks(title="GPT 学术优化", theme=set_theme, analytics_enabled=False, css=advanced_css) as app_block:
+    with gr.Blocks(title="学术翻译", theme=set_theme, analytics_enabled=False, css=advanced_css) as app_block:
         gr.HTML(title_html)
         secret_css = gr.Textbox(visible=False, elem_id="secret_css")
         register_advanced_plugin_init_code_arr = ""
@@ -93,7 +93,7 @@ def main():
                 if LAYOUT == "TOP-DOWN":  chatbot.style(height=CHATBOT_HEIGHT)
                 history, history_cache, history_cache_update = make_history_cache() # 定义 后端state（history）、前端（history_cache）、后端setter（history_cache_update）三兄弟
             with gr_L2(scale=1, elem_id="gpt-panel"):
-                with gr.Accordion("输入区", open=True, elem_id="input-panel") as area_input_primary:
+                with gr.Accordion("输入区", open=False, elem_id="input-panel") as area_input_primary:
                     with gr.Row():
                         txt = gr.Textbox(show_label=False, placeholder="Input question here.", elem_id='user_input_main').style(container=False)
                     with gr.Row():
@@ -108,7 +108,7 @@ def main():
                     with gr.Row():
                         status = gr.Markdown(f"Tip: 按Enter提交, 按Shift+Enter换行。当前模型: {LLM_MODEL} \n {proxy_info}", elem_id="state-panel")
 
-                with gr.Accordion("基础功能区", open=True, elem_id="basic-panel") as area_basic_fn:
+                with gr.Accordion("基础功能区", open=False, elem_id="basic-panel") as area_basic_fn:
                     with gr.Row():
                         for k in range(NUM_CUSTOM_BASIC_BTN):
                             customize_btn = gr.Button("自定义按钮" + str(k+1), visible=False, variant="secondary", info_str=f'基础功能区: 自定义按钮')
@@ -127,6 +127,7 @@ def main():
                         plugin_group_sel = gr.Dropdown(choices=all_plugin_groups, label='', show_label=False, value=DEFAULT_FN_GROUPS,
                                                       multiselect=True, interactive=True, elem_classes='normal_mut_select').style(container=False)
                     with gr.Row():
+                        stopBtn = gr.Button("停止", elem_id="elem_stop", variant="secondary"); stopBtn.style(size="sm")
                         for k, plugin in plugins.items():
                             if not plugin.get("AsButton", True): continue
                             visible = True if match_group(plugin['Group'], DEFAULT_FN_GROUPS) else False
@@ -135,7 +136,7 @@ def main():
                             plugin['Button'] = plugins[k]['Button'] = gr.Button(k, variant=variant,
                                 visible=visible, info_str=f'函数插件区: {info}').style(size="sm")
                     with gr.Row():
-                        with gr.Accordion("更多函数插件", open=True):
+                        with gr.Accordion("更多函数插件", open=False):
                             dropdown_fn_list = []
                             for k, plugin in plugins.items():
                                 if not match_group(plugin['Group'], DEFAULT_FN_GROUPS): continue
@@ -149,7 +150,7 @@ def main():
                             with gr.Row():
                                 switchy_bt = gr.Button(r"请先从插件列表中选择", variant="secondary").style(size="sm")
                     with gr.Row():
-                        with gr.Accordion("点击展开“文件下载区”。", open=False) as area_file_up:
+                        with gr.Accordion("点击展开“文件下载区”。", open=True) as area_file_up:
                             file_upload = gr.Files(label="任何文件, 推荐上传压缩文件(zip, tar)", file_count="multiple", elem_id="elem_upload")
 
         from themes.gui_toolbar import define_gui_toolbar

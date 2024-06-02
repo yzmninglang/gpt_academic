@@ -114,7 +114,7 @@ MAX_RETRY = 2
 
 
 # 插件分类默认选项
-DEFAULT_FN_GROUPS = ['对话', '编程', '学术', '智能体']
+DEFAULT_FN_GROUPS = ['学术']
 
 
 # 定义界面上“询问多个GPT模型”插件应该使用哪些模型，请从AVAIL_LLM_MODELS中选择，并在不同模型之间用`&`间隔，例如"gpt-3.5-turbo&chatglm3&azure-gpt-4"
@@ -238,7 +238,7 @@ MATHPIX_APPKEY = ""
 
 
 # DOC2X的PDF解析服务，注册账号并获取API KEY: https://doc2x.noedgeai.com/login
-DOC2X_API_KEY = ""
+DOC2X_API_KEY = "9204.h5.e96fa406b6a16589c30159b23316db7b55a92ddf02101e429045fe1342c65418"
 
 
 # 自定义API KEY格式

@@ -47,7 +47,7 @@ def get_crazy_functions():
 
     function_plugins = {
         "虚空终端": {
-            "Group": "对话|编程|学术|智能体",
+            "Group": "对话|编程|智能体",
             "Color": "stop",
             "AsButton": True,
             "Function": HotReload(虚空终端),
@@ -89,7 +89,7 @@ def get_crazy_functions():
             "ArgsReminder": "请输入图类型对应的数字,不输入则为模型自行判断:1-流程图,2-序列图,3-类图,4-饼图,5-甘特图,6-状态图,7-实体关系图,8-象限提示图,9-思维导图",
         },
         "批量总结Word文档": {
-            "Group": "学术",
+            "Group": "编程",
             "Color": "stop",
             "AsButton": True,
             "Info": "批量总结word文档 | 输入参数为路径",
