@@ -221,7 +221,7 @@ def get_crazy_functions():
             "AsButton": True,
             "Info": "精准翻译PDF论文为中文 | 输入参数为路径",
             "Function": HotReload(批量翻译PDF文档), # 当注册Class后，Function旧接口仅会在“虚空终端”中起作用
-            "Class": PDF_Tran,  # 新一代插件需要注册Class
+            # "Class": PDF_Tran,  # 新一代插件需要注册Class
         },
         "询问多个GPT模型": {
             "Group": "对话",

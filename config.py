@@ -102,7 +102,7 @@ TIMEOUT_SECONDS = 30
 
 
 # 网页的端口, -1代表随机端口
-WEB_PORT = 80
+WEB_PORT = 8080
 
 
 # 是否自动打开浏览器页面
